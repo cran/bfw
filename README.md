@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# bfw: Bayesian Framework for Computational Modelling
+# bfw: Bayesian Framework for Computational Modeling
 
 The purpose of `bfw` is to establish a framework for conducting Bayesian
 analysis, using MCMC and JAGS (Plummer, 2003). The framework provides
@@ -52,7 +52,7 @@ You can install `bfw` from GitHub. If you already have a previous
 version of `bfw` installed, using the command below will update to the
 latest development version.
 
-#### Development version (GitHub)
+#### Development version ([GitHub](https://github.com/oeysan/bfw/))
 
 ``` r
 devtools::install_github("oeysan/bfw")
@@ -61,7 +61,7 @@ devtools::install_github("oeysan/bfw")
 Please note that stable versions are hosted at CRAN, whereas GitHub
 versions are in active development.
 
-#### Stable version (CRAN)
+#### Stable version ([CRAN](https://CRAN.R-project.org/package=bfw))
 
 ``` r
 utils::install.packages("bfw")
@@ -176,10 +176,10 @@ round(biased.mcmc.robust$summary.MCMC[,c(3:6,9:12)],3)
 ``` r
 # Running time for normal distribution analyis 
 biased.mcmc$run.time[2] - biased.mcmc$run.time[1]
-#> Time difference of 6.43 secs
+#> Time difference of 7.27 secs
 # Running time for t-distribution analysis
 biased.mcmc.robust$run.time[2] - biased.mcmc.robust$run.time[1]
-#> Time difference of 31.2 secs
+#> Time difference of 32.5 secs
 ```
 
 ## Example 3: Using custom function and model
