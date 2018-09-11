@@ -1,12 +1,12 @@
 Regression
 ================
 Øystein Olav Skaar
-2018-06-14
+2018-09-11
 
-## Regression
+Regression
+----------
 
-Enjoy this brief demonstration of the regression
-module
+Enjoy this brief demonstration of the regression module
 
 ### First we simulate some data
 
@@ -35,16 +35,16 @@ summary(stats::lm(y ~ x, data=data.frame(data)))
 #> stats::lm(formula = y ~ x, data = data.frame(data))
 #> 
 #> Residuals:
-#>    Min     1Q Median     3Q    Max 
-#> -2.236 -0.572  0.070  0.588  1.714 
+#>     Min      1Q  Median      3Q     Max 
+#> -2.0984 -0.4947  0.0827  0.4968  1.9826 
 #> 
 #> Coefficients:
-#>                            Estimate              Std. Error t value
-#> (Intercept) -0.00000000000000000971  0.08704326862109958152    0.00
-#> x            0.50000000000000011102  0.08748177652797066439    5.72
-#>               Pr(>|t|)    
-#> (Intercept)          1    
-#> x           0.00000012 ***
+#>                          Estimate            Std. Error t value   Pr(>|t|)
+#> (Intercept) 0.0000000000000000198 0.0870432686210995954    0.00          1
+#> x           0.4999999999999997780 0.0874817765279706644    5.72 0.00000012
+#>                
+#> (Intercept)    
+#> x           ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
@@ -103,7 +103,7 @@ summary(stats::lm(y ~ x, data=data.frame(biased.data)))
 #> 
 #> Residuals:
 #>    Min     1Q Median     3Q    Max 
-#> -5.272 -0.867  0.068  0.891  4.131 
+#> -5.272 -0.873  0.085  0.984  3.609 
 #> 
 #> Coefficients:
 #>             Estimate Std. Error t value    Pr(>|t|)    

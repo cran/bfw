@@ -34,12 +34,10 @@ aggregate.data <- stats::aggregate(list(Ratings = data$Ratings),
                                    FUN=function(x) c(Mean = mean(x), SD = sd(x)))
 # Describe data
 describe.data <- psych::describe(data)[,c(2:5,10:12)]
+describe.data
 
 # Print data
 print(aggregate.data, digits = 3)
-```
-
-### Next we'll run the Bayesian model to analyze the cats
 ```
 
 ### Next we'll run the Bayesian model to analyze the cats
@@ -55,185 +53,60 @@ mcmc <- bfw::bfw(project.data = data,
             contrasts = "1,2,3",
             jags.seed = 100,
             silent = TRUE)
-# ... and just show the most likely parameter estimate and sample size.
-round(mcmc$summary.MCMC[,c(1,7)],3)      
-#>                                                            Mean    n
-#> m1m2m3[1,1,1]: Food vs. No vs. Evil                       1.786   39
-#> m1m2m3[2,1,1]: Affection vs. No vs. Evil                  5.067 1024
-#> m1m2m3[1,2,1]: Food vs. Yes vs. Evil                      1.693  191
-#> m1m2m3[2,2,1]: Affection vs. Yes vs. Evil                 4.887   45
-#> m1m2m3[1,1,2]: Food vs. No vs. Good                       5.527   61
-#> m1m2m3[2,1,2]: Affection vs. No vs. Good                  3.793  116
-#> m1m2m3[1,2,2]: Food vs. Yes vs. Good                      5.734   89
-#> m1m2m3[2,2,2]: Affection vs. Yes vs. Good                 3.900  435
-#> s1s2s3[1,1,1]: Food vs. No vs. Evil                       0.603   39
-#> s1s2s3[2,1,1]: Affection vs. No vs. Evil                  1.005 1024
-#> s1s2s3[1,2,1]: Food vs. Yes vs. Evil                      0.618  191
-#> s1s2s3[2,2,1]: Affection vs. Yes vs. Evil                 0.928   45
-#> s1s2s3[1,1,2]: Food vs. No vs. Good                       0.863   61
-#> s1s2s3[2,1,2]: Affection vs. No vs. Good                  0.944  116
-#> s1s2s3[1,2,2]: Food vs. Yes vs. Good                      0.810   89
-#> s1s2s3[2,2,2]: Affection vs. Yes vs. Good                 1.101  435
-#> b1[1]: Food                                              -0.363  380
-#> b1[2]: Affection                                          0.363 1620
-#> b2[1]: No                                                -0.005 1240
-#> b2[2]: Yes                                                0.005  760
-#> b3[1]: Evil                                              -0.690 1299
-#> b3[2]: Good                                               0.690  701
-#> b1b2[1,1]: Food vs. No                                   -0.023  100
-#> b1b2[2,1]: Affection vs. No                               0.023 1140
-#> b1b2[1,2]: Food vs. Yes                                   0.023  280
-#> b1b2[2,2]: Affection vs. Yes                             -0.023  480
-#> b1b3[1,1]: Food vs. Evil                                 -1.255  230
-#> b1b3[2,1]: Affection vs. Evil                             1.255 1069
-#> b1b3[1,2]: Food vs. Good                                  1.255  150
-#> b1b3[2,2]: Affection vs. Good                            -1.255  551
-#> b2b3[1,1]: No vs. Evil                                    0.073 1063
-#> b2b3[2,1]: Yes vs. Evil                                  -0.073  236
-#> b2b3[1,2]: No vs. Good                                   -0.073  177
-#> b2b3[2,2]: Yes vs. Good                                   0.073  524
-#> b1b2b3[1,1,1]: Food vs. No vs. Evil                      -1.204   39
-#> b1b2b3[2,1,1]: Affection vs. No vs. Evil                  1.350 1024
-#> b1b2b3[1,2,1]: Food vs. Yes vs. Evil                     -1.307  191
-#> b1b2b3[2,2,1]: Affection vs. Yes vs. Evil                 1.161   45
-#> b1b2b3[1,1,2]: Food vs. No vs. Good                       1.158   61
-#> b1b2b3[2,1,2]: Affection vs. No vs. Good                 -1.304  116
-#> b1b2b3[1,2,2]: Food vs. Yes vs. Good                      1.353   89
-#> b1b2b3[2,2,2]: Affection vs. Yes vs. Good                -1.207  435
-#> m1[1]: Food                                               3.685  380
-#> s1[1]: Food                                               0.724  380
-#> m1[2]: Affection                                          4.412 1620
-#> s1[2]: Affection                                          0.995 1620
-#> m2[1]: No                                                 4.043 1240
-#> s2[1]: No                                                 0.854 1240
-#> m2[2]: Yes                                                4.053  760
-#> s2[2]: Yes                                                0.864  760
-#> m3[1]: Evil                                               3.358 1299
-#> s3[1]: Evil                                               0.789 1299
-#> m3[2]: Good                                               4.738  701
-#> s3[2]: Good                                               0.930  701
-#> m1m2[1,1]: Food vs. No                                    3.656  100
-#> s1s2[1,1]: Food vs. No                                    0.733  100
-#> m1m2[2,1]: Affection vs. No                               4.430 1140
-#> s1s2[2,1]: Affection vs. No                               0.975 1140
-#> m1m2[1,2]: Food vs. Yes                                   3.714  280
-#> s1s2[1,2]: Food vs. Yes                                   0.714  280
-#> m1m2[2,2]: Affection vs. Yes                              4.393  480
-#> s1s2[2,2]: Affection vs. Yes                              1.015  480
-#> m1m3[1,1]: Food vs. Evil                                  1.740  230
-#> s1s3[1,1]: Food vs. Evil                                  0.610  230
-#> m1m3[2,1]: Affection vs. Evil                             4.977 1069
-#> s1s3[2,1]: Affection vs. Evil                             0.967 1069
-#> m1m3[1,2]: Food vs. Good                                  5.631  150
-#> s1s3[1,2]: Food vs. Good                                  0.837  150
-#> m1m3[2,2]: Affection vs. Good                             3.846  551
-#> s1s3[2,2]: Affection vs. Good                             1.023  551
-#> m2m3[1,1]: No vs. Evil                                    3.426 1063
-#> s2s3[1,1]: No vs. Evil                                    0.804 1063
-#> m2m3[2,1]: Yes vs. Evil                                   3.290  236
-#> s2s3[2,1]: Yes vs. Evil                                   0.773  236
-#> m2m3[1,2]: No vs. Good                                    4.660  177
-#> s2s3[1,2]: No vs. Good                                    0.903  177
-#> m2m3[2,2]: Yes vs. Good                                   4.817  524
-#> s2s3[2,2]: Yes vs. Good                                   0.956  524
-#> Beta difference: Food/Affection                          -0.726 2000
-#> Beta difference: No/Yes                                  -0.010 2000
-#> Beta difference: Evil/Good                               -1.380 2000
-#> Beta difference: Food/Affection @ No                     -0.047 1240
-#> Beta difference: Food vs. No/Yes                         -0.047  380
-#> Beta difference: Food/Affection vs. No/Yes                0.000 2000
-#> Beta difference: Affection/Food vs. No/Yes                0.000 2000
-#> Beta difference: Affection vs. No/Yes                     0.047 1620
-#> Beta difference: Food/Affection @ Yes                     0.047  760
-#> Beta difference: Food/Affection @ Evil                   -2.511 1299
-#> Beta difference: Food vs. Evil/Good                      -2.511  380
-#> Beta difference: Food/Affection vs. Evil/Good             0.000 2000
-#> Beta difference: Affection/Food vs. Evil/Good             0.000 2000
-#> Beta difference: Affection vs. Evil/Good                  2.511 1620
-#> Beta difference: Food/Affection @ Good                    2.511  701
-#> Beta difference: No/Yes @ Evil                            0.146 1299
-#> Beta difference: No vs. Evil/Good                         0.146 1240
-#> Beta difference: No/Yes vs. Evil/Good                     0.000 2000
-#> Beta difference: Yes/No vs. Evil/Good                     0.000 2000
-#> Beta difference: Yes vs. Evil/Good                       -0.146  760
-#> Beta difference: No/Yes @ Good                           -0.146  701
-#> Beta difference: Food/Affection @ No @ Evil              -2.555 1063
-#> Beta difference: Food vs. No/Yes @ Evil                   0.102  230
-#> Beta difference: Food/Affection vs. No/Yes @ Evil        -2.365 1299
-#> Beta difference: Food @ No vs. Evil/Good                 -2.362  100
-#> Beta difference: Food/Affection @ No vs. Evil/Good        0.099 1240
-#> Beta difference: Food vs. No/Yes vs. Evil/Good           -2.558  380
-#> Beta difference: Food/Affection vs. No/Yes vs. Evil/Good  0.003 2000
-#> Beta difference: Affection/Food vs. No/Yes @ Evil         2.657 1299
-#> Beta difference: Affection vs. No/Yes @ Evil              0.190 1069
-#> Beta difference: Affection/Food @ No vs. Evil/Good        0.193 1240
-#> Beta difference: Affection @ No vs. Evil/Good             2.654 1140
-#> Beta difference: Affection/Food vs. No/Yes vs. Evil/Good -0.003 2000
-#> Beta difference: Affection vs. No/Yes vs. Evil/Good       2.558 1620
-#> Beta difference: Food/Affection @ Yes @ Evil             -2.467  236
-#> Beta difference: Food vs. Yes/No vs. Evil/Good           -2.464  380
-#> Beta difference: Food/Affection vs. Yes/No vs. Evil/Good -0.003 2000
-#> Beta difference: Food @ Yes vs. Evil/Good                -2.660  280
-#> Beta difference: Food/Affection @ Yes vs. Evil/Good      -0.099  760
-#> Beta difference: Affection/Food vs. Yes/No vs. Evil/Good  0.003 2000
-#> Beta difference: Affection vs. Yes/No vs. Evil/Good       2.464 1620
-#> Beta difference: Affection/Food @ Yes vs. Evil/Good      -0.193  760
-#> Beta difference: Affection @ Yes vs. Evil/Good            2.368  480
-#> Beta difference: Food/Affection @ No @ Good               2.461  177
-#> Beta difference: Food vs. No/Yes @ Good                  -0.196  150
-#> Beta difference: Food/Affection vs. No/Yes @ Good         2.365  701
-#> Beta difference: Affection/Food vs. No/Yes @ Good        -2.657  701
-#> Beta difference: Affection vs. No/Yes @ Good             -0.096  551
-#> Beta difference: Food/Affection @ Yes @ Good              2.561  524
-#> Effect size: Food/Affection                              -0.836 2000
-#> Effect size: No/Yes                                      -0.012 2000
-#> Effect size: Evil/Good                                   -1.602 2000
-#> Effect size: Food/Affection @ No                         -0.898 1240
-#> Effect size: Food vs. No/Yes                             -0.079  380
-#> Effect size: Food/Affection vs. No/Yes                   -0.833 2000
-#> Effect size: Affection/Food vs. No/Yes                    0.840 2000
-#> Effect size: Affection vs. No/Yes                         0.037 1620
-#> Effect size: Food/Affection @ Yes                        -0.775  760
-#> Effect size: Food/Affection @ Evil                       -4.011 1299
-#> Effect size: Food vs. Evil/Good                          -5.316  380
-#> Effect size: Food/Affection vs. Evil/Good                -2.505 2000
-#> Effect size: Affection/Food vs. Evil/Good                -0.724 2000
-#> Effect size: Affection vs. Evil/Good                      1.138 1620
-#> Effect size: Food/Affection @ Good                        1.912  701
-#> Effect size: No/Yes @ Evil                                0.172 1299
-#> Effect size: No vs. Evil/Good                            -1.444 1240
-#> Effect size: No/Yes vs. Evil/Good                        -1.576 2000
-#> Effect size: Yes/No vs. Evil/Good                        -1.630 2000
-#> Effect size: Yes vs. Evil/Good                           -1.757  760
-#> Effect size: No/Yes @ Good                               -0.168  701
-#> Effect size: Food/Affection @ No @ Evil                  -3.982 1063
-#> Effect size: Food vs. No/Yes @ Evil                       0.151  230
-#> Effect size: Food/Affection vs. No/Yes @ Evil            -3.968 1299
-#> Effect size: Food @ No vs. Evil/Good                     -5.035  100
-#> Effect size: Food/Affection @ No vs. Evil/Good           -2.543 1240
-#> Effect size: Food vs. No/Yes vs. Evil/Good               -5.531  380
-#> Effect size: Food/Affection vs. No/Yes vs. Evil/Good     -2.388 2000
-#> Effect size: Affection/Food vs. No/Yes @ Evil             4.064 1299
-#> Effect size: Affection vs. No/Yes @ Evil                  0.186 1069
-#> Effect size: Affection/Food @ No vs. Evil/Good           -0.493 1240
-#> Effect size: Affection @ No vs. Evil/Good                 1.311 1140
-#> Effect size: Affection/Food vs. No/Yes vs. Evil/Good     -0.733 2000
-#> Effect size: Affection vs. No/Yes vs. Evil/Good           1.110 1620
-#> Effect size: Food/Affection @ Yes @ Evil                 -4.054  236
-#> Effect size: Food vs. Yes/No vs. Evil/Good               -5.116  380
-#> Effect size: Food/Affection vs. Yes/No vs. Evil/Good     -2.639 2000
-#> Effect size: Food @ Yes vs. Evil/Good                    -5.610  280
-#> Effect size: Food/Affection @ Yes vs. Evil/Good          -2.477  760
-#> Effect size: Affection/Food vs. Yes/No vs. Evil/Good     -0.715 2000
-#> Effect size: Affection vs. Yes/No vs. Evil/Good           1.171 1620
-#> Effect size: Affection/Food @ Yes vs. Evil/Good          -0.972  760
-#> Effect size: Affection @ Yes vs. Evil/Good                0.971  480
-#> Effect size: Food/Affection @ No @ Good                   1.922  177
-#> Effect size: Food vs. No/Yes @ Good                      -0.247  150
-#> Effect size: Food/Affection vs. No/Yes @ Good             1.648  701
-#> Effect size: Affection/Food vs. No/Yes @ Good            -2.210  701
-#> Effect size: Affection vs. No/Yes @ Good                 -0.104  551
-#> Effect size: Food/Affection @ Yes @ Good                  1.901  524
+
+# ... and just show the most likely parameter estimate of effect sizes.
+round(normal$summary.MCMC[grep("Effect size:",
+                         rownames(normal$summary.MCMC)), c(2,5:7)],3)   
+#                                                      Median  HDIlo  HDIhi    n
+# Effect size: Food/Affection                          -0.832 -0.992 -0.667 2000
+# Effect size: No/Yes                                  -0.012 -0.163  0.148 2000
+# Effect size: Evil/Good                               -1.600 -1.775 -1.419 2000
+# Effect size: Food/Affection @ No                     -0.893 -1.151 -0.632 1240
+# Effect size: Food vs. No/Yes                         -0.079 -0.248  0.100  380
+# Effect size: Food/Affection vs. No/Yes               -0.830 -1.015 -0.650 2000
+# Effect size: Affection/Food vs. No/Yes                0.836  0.571  1.110 2000
+# Effect size: Affection vs. No/Yes                     0.035 -0.194  0.274 1620
+# Effect size: Food/Affection @ Yes                    -0.773 -0.968 -0.582  760
+# Effect size: Food/Affection @ Evil                   -4.007 -4.458 -3.541 1299
+# Effect size: Food vs. Evil/Good                      -5.320 -5.696 -4.952  380
+# Effect size: Food/Affection vs. Evil/Good            -2.500 -2.811 -2.186 2000
+# Effect size: Affection/Food vs. Evil/Good            -0.725 -0.940 -0.506 2000
+# Effect size: Affection vs. Evil/Good                  1.134  0.882  1.393 1620
+# Effect size: Food/Affection @ Good                    1.911  1.663  2.154  701
+# Effect size: No/Yes @ Evil                            0.168 -0.082  0.401 1299
+# Effect size: No vs. Evil/Good                        -1.445 -1.712 -1.169 1240
+# Effect size: No/Yes vs. Evil/Good                    -1.573 -1.831 -1.323 2000
+# Effect size: Yes/No vs. Evil/Good                    -1.631 -1.878 -1.380 2000
+# Effect size: Yes vs. Evil/Good                       -1.752 -1.974 -1.532  760
+# Effect size: No/Yes @ Good                           -0.164 -0.357  0.033  701
+# Effect size: Food/Affection @ No @ Evil              -3.971 -4.708 -3.192 1063
+# Effect size: Food vs. No/Yes @ Evil                   0.147 -0.148  0.442  230
+# Effect size: Food/Affection vs. No/Yes @ Evil        -3.969 -4.301 -3.634 1299
+# Effect size: Food @ No vs. Evil/Good                 -5.040 -5.530 -4.549  100
+# Effect size: Food/Affection @ No vs. Evil/Good       -2.543 -2.964 -2.095 1240
+# Effect size: Food vs. No/Yes vs. Evil/Good           -5.530 -5.811 -5.253  380
+# Effect size: Food/Affection vs. No/Yes vs. Evil/Good -2.381 -2.734 -1.999 2000
+# Effect size: Affection/Food vs. No/Yes @ Evil         4.049  3.216  4.892 1299
+# Effect size: Affection vs. No/Yes @ Evil              0.181 -0.153  0.508 1069
+# Effect size: Affection/Food @ No vs. Evil/Good       -0.499 -0.879 -0.135 1240
+# Effect size: Affection @ No vs. Evil/Good             1.301  0.888  1.735 1140
+# Effect size: Affection/Food vs. No/Yes vs. Evil/Good -0.735 -1.073 -0.376 2000
+# Effect size: Affection vs. No/Yes vs. Evil/Good       1.103  0.709  1.494 1620
+# Effect size: Food/Affection @ Yes @ Evil             -4.059 -4.539 -3.586  236
+# Effect size: Food vs. Yes/No vs. Evil/Good           -5.120 -5.792 -4.475  380
+# Effect size: Food/Affection vs. Yes/No vs. Evil/Good -2.636 -3.147 -2.119 2000
+# Effect size: Food @ Yes vs. Evil/Good                -5.624 -6.197 -5.065  280
+# Effect size: Food/Affection @ Yes vs. Evil/Good      -2.468 -2.913 -2.031  760
+# Effect size: Affection/Food vs. Yes/No vs. Evil/Good -0.718 -0.944 -0.482 2000
+# Effect size: Affection vs. Yes/No vs. Evil/Good       1.171  0.865  1.479 1620
+# Effect size: Affection/Food @ Yes vs. Evil/Good      -0.970 -1.157 -0.788  760
+# Effect size: Affection @ Yes vs. Evil/Good            0.972  0.699  1.230  480
+# Effect size: Food/Affection @ No @ Good               1.923  1.554  2.297  177
+# Effect size: Food vs. No/Yes @ Good                  -0.242 -0.446 -0.036  150
+# Effect size: Food/Affection vs. No/Yes @ Good         1.649  1.317  1.971  701
+# Effect size: Affection/Food vs. No/Yes @ Good        -2.209 -2.565 -1.843  701
+# Effect size: Affection vs. No/Yes @ Good             -0.102 -0.402  0.200  551
+# Effect size: Food/Affection @ Yes @ Good              1.899  1.586  2.196  524
 ```
 
 ### Uhm. That's a lot of obscure output
@@ -254,7 +127,9 @@ as reward over affection (*M*&nbsp;=&nbsp;1.73). Second we can see that good cat
 over food (*M*&nbsp;=&nbsp;2.43). Furthermore, we can also infer that evil cats that dance (*M*&nbsp;=&nbsp;2.02) rate
 their owners about the same as evil cats that do not dance (*M*&nbsp;=&nbsp;2.11). Good cats, similarly have fairly equal
 ratings regardless of whether they dance (*M*&nbsp;=&nbsp;2.88) or not (*M*&nbsp;=&nbsp;2.77). Finally, evil cats (*M*&nbsp;=&nbsp;2.07) rate their
-owners somewhat lower than good cats (*M*&nbsp;=&nbsp;2.83), as seen by **Effect size: Evil/Good**&nbsp;=&nbsp;-1.60. From the results claim that
+owners somewhat lower than good cats (*M*&nbsp;=&nbsp;2.83), as seen by **Effect size: Evil/Good**&nbsp;=&nbsp;-1.60. 
+
+From the results we can claim that
 evil cats, in general, rate their owners higher if they get food rather than affection (*d*&nbsp;=&nbsp;-4.01), and that the opposite is true for good cats
 (*d*&nbsp;=&nbsp;-1.91).
 

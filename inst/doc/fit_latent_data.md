@@ -1,12 +1,12 @@
 Fit Latent Data
 ================
 Øystein Olav Skaar
-2018-06-14
+2018-09-11
 
-## Fit Latent Data
+Fit Latent Data
+---------------
 
-Enjoy this brief demonstration of the fit latent data module (i.e., a
-simple mediation model).
+Enjoy this brief demonstration of the fit latent data module (i.e., a simple mediation model).
 
 Also, please see [Fit Observed Data](fit_observed_data.md).
 
@@ -53,7 +53,10 @@ cd := c + (a*b)"
 
 fit <- lavaan::sem(model, data = data)
 lavaan::summary(fit)
-#> lavaan (0.6-1) converged normally after  26 iterations
+#> lavaan 0.6-2 ended normally after 26 iterations
+#> 
+#>   Optimization method                           NLMINB
+#>   Number of free parameters                          5
 #> 
 #>   Number of observations                          1000
 #> 
@@ -126,7 +129,10 @@ biased.data <- rbind(data,noise)
 ``` r
 biased.fit <- lavaan::sem(model, data = biased.data)
 lavaan::summary(biased.fit)
-#> lavaan (0.6-1) converged normally after  31 iterations
+#> lavaan 0.6-2 ended normally after 31 iterations
+#> 
+#>   Optimization method                           NLMINB
+#>   Number of free parameters                          5
 #> 
 #>   Number of observations                          1002
 #> 

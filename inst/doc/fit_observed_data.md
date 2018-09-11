@@ -1,12 +1,12 @@
 Fit Observed Data
 ================
 Øystein Olav Skaar
-2018-06-14
+2018-09-11
 
-## Fit Observed Data
+Fit Observed Data
+-----------------
 
-Enjoy this brief demonstration of the fit observed data module (i.e., a
-simple mediation model).
+Enjoy this brief demonstration of the fit observed data module (i.e., a simple mediation model).
 
 Also, please see [Fit Latent Data](fit_latent_data.md).
 
@@ -75,7 +75,10 @@ cd := c + (a*b)
 
 jitter.fit <- lavaan::sem(model, data = jitter.data)
 lavaan::summary(jitter.fit)
-#> lavaan (0.6-1) converged normally after  34 iterations
+#> lavaan 0.6-2 ended normally after 34 iterations
+#> 
+#>   Optimization method                           NLMINB
+#>   Number of free parameters                         33
 #> 
 #>   Number of observations                          1000
 #> 
@@ -212,7 +215,7 @@ round(bayesian.jitter.fit$summary.MCMC[,3:7],3)
 #> PPP                                     0.991    20   0.988   0.992 1000
 ```
 
-### Let’s add some noise to the observed data
+### Let's add some noise to the observed data
 
 ``` r
 biased.sigma <-matrix(c(1,1,0,1,1,0,0,0,1),3,3)
@@ -233,7 +236,10 @@ biased.jitter.data <- rbind(jitter.data, jitter.noise)
 ``` r
 biased.jitter.fit <- lavaan::sem(model, data = biased.jitter.data)
 lavaan::summary(biased.jitter.fit)
-#> lavaan (0.6-1) converged normally after 250 iterations
+#> lavaan 0.6-2 ended normally after 247 iterations
+#> 
+#>   Optimization method                           NLMINB
+#>   Number of free parameters                         33
 #> 
 #>   Number of observations                          1002
 #> 
@@ -261,7 +267,7 @@ lavaan::summary(biased.jitter.fit)
 #>     x2                1.000    0.002  538.595    0.000
 #>     x3                1.000    0.002  535.008    0.000
 #>     x4                1.000    0.002  529.637    0.000
-#>     x5                1.000    0.002  530.684    0.000
+#>     x5                1.000    0.002  530.683    0.000
 #>   m =~                                                
 #>     m1                1.000                           
 #>     m2                0.967    0.026   37.620    0.000

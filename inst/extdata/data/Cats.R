@@ -1,3 +1,5 @@
+require(truncnorm)
+
 # Reward = Food and Dance = Yes/No
 food <- data.frame(
   Reward = rep("Food",380) ,

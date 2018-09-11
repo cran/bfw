@@ -1,29 +1,16 @@
----
-title: "Predict Metric"
-author: "Øystein Olav Skaar"
-date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Predict Metric}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
----
+Predict Metric
+================
+Øystein Olav Skaar
+2018-09-11
 
-```{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
-
-
-## Predict Metric
+Predict Metric
+--------------
 
 Enjoy this brief demonstration of the predict metric module
 
 First, we steal Field's (2017) dancing cat example (please see [Cats.R](extdata/Data/Cats.R))
 
-```{r describe}
+``` r
 # Define data
 data <- bfw::Cats
 # Aggregate data
@@ -35,13 +22,28 @@ aggregate.data <- stats::aggregate(list(Ratings = data$Ratings),
 # Describe data
 describe.data <- psych::describe(data)[,c(2:5,10:12)]
 describe.data
+#>               n mean   sd median range  skew kurtosis
+#> Reward*    2000 1.81 0.39   2.00     1 -1.58     0.49
+#> Dance*     2000 1.38 0.49   1.00     1  0.49    -1.76
+#> Alignment* 2000 1.35 0.48   1.00     1  0.63    -1.61
+#> Ratings    2000 3.37 1.92   2.69     6  0.38    -1.40
 
 # Print data
 print(aggregate.data, digits = 3)
+#>      Reward Dance Alignment Ratings.Mean Ratings.SD
+#> 1      Food    No      Evil        5.078      0.991
+#> 2 Affection    No      Evil        1.785      0.602
+#> 3      Food   Yes      Evil        4.887      0.925
+#> 4 Affection   Yes      Evil        1.692      0.604
+#> 5      Food    No      Good        3.789      0.934
+#> 6 Affection    No      Good        5.528      0.857
+#> 7      Food   Yes      Good        3.898      1.097
+#> 8 Affection   Yes      Good        5.734      0.809
 ```
 
 ### Next we'll run the Bayesian model to analyze the cats
-```{r metric1, eval = FALSE}
+
+``` r
 # Use the three categorical variables and mixed contrast.
 mcmc <- bfw::bfw(project.data = data,
             y = "Ratings",
@@ -111,31 +113,29 @@ round(normal$summary.MCMC[grep("Effect size:",
 
 ### Uhm. That's a lot of obscure output
 
-Let's try to break it down. For instance, the effect size is an approximation of Cohen's *d*.
-Now, if we take a look at **Effect size: Food/Affection vs. No/Yes vs. Evil/Good**, it clearly
-indicate a large, negative effect of some sort. From the aggregate table at the beginning of
-the vignette, we can try to interpret the result.
+Let's try to break it down. For instance, the effect size is an approximation of Cohen's *d*. Now, if we take a look at **Effect size: Food/Affection vs. No/Yes vs. Evil/Good**, it clearly indicate a large, negative effect of some sort. From the aggregate table at the beginning of the vignette, we can try to interpret the result.
 
-
-```{r describe2}
+``` r
 # Let's print the aggregate table again.
 print(aggregate.data, digits = 3)
+#>      Reward Dance Alignment Ratings.Mean Ratings.SD
+#> 1      Food    No      Evil        5.078      0.991
+#> 2 Affection    No      Evil        1.785      0.602
+#> 3      Food   Yes      Evil        4.887      0.925
+#> 4 Affection   Yes      Evil        1.692      0.604
+#> 5      Food    No      Good        3.789      0.934
+#> 6 Affection    No      Good        5.528      0.857
+#> 7      Food   Yes      Good        3.898      1.097
+#> 8 Affection   Yes      Good        5.734      0.809
 ```
 
-First, we can see that regardless of whether the evil cats dance or not, they prefer food (*M*&nbsp;=&nbsp;4.98)
-as reward over affection (*M*&nbsp;=&nbsp;1.73). Second we can see that good cats prefer affection (*M*&nbsp;=&nbsp;5.63)
-over food (*M*&nbsp;=&nbsp;2.43). Furthermore, we can also infer that evil cats that dance (*M*&nbsp;=&nbsp;2.02) rate
-their owners about the same as evil cats that do not dance (*M*&nbsp;=&nbsp;2.11). Good cats, similarly have fairly equal
-ratings regardless of whether they dance (*M*&nbsp;=&nbsp;2.88) or not (*M*&nbsp;=&nbsp;2.77). Finally, evil cats (*M*&nbsp;=&nbsp;2.07) rate their
-owners somewhat lower than good cats (*M*&nbsp;=&nbsp;2.83), as seen by **Effect size: Evil/Good**&nbsp;=&nbsp;-1.60. 
+First, we can see that regardless of whether the evil cats dance or not, they prefer food (*M* = 4.98) as reward over affection (*M* = 1.73). Second we can see that good cats prefer affection (*M* = 5.63) over food (*M* = 2.43). Furthermore, we can also infer that evil cats that dance (*M* = 2.02) rate their owners about the same as evil cats that do not dance (*M* = 2.11). Good cats, similarly have fairly equal ratings regardless of whether they dance (*M* = 2.88) or not (*M* = 2.77). Finally, evil cats (*M* = 2.07) rate their owners somewhat lower than good cats (*M* = 2.83), as seen by **Effect size: Evil/Good** = -1.60.
 
-From the results we can claim that
-evil cats, in general, rate their owners higher if they get food rather than affection (*d*&nbsp;=&nbsp;-4.01), and that the opposite is true for good cats
-(*d*&nbsp;=&nbsp;-1.91).
+From the results we can claim that evil cats, in general, rate their owners higher if they get food rather than affection (*d* = -4.01), and that the opposite is true for good cats (*d* = -1.91).
 
-**Please note that by conducting mixed contrasts results will include both between and within contrasts, in addition to any possible combination
-(including ones that does not necessarily give any meaning).**
+**Please note that by conducting mixed contrasts results will include both between and within contrasts, in addition to any possible combination (including ones that does not necessarily give any meaning).**
 
-## References
+References
+----------
 
-* Field, A. (2017). *Discovering statistics using IBM SPSS statistics (5th edition).* Thousand Oaks, CA: SAGE Publications.
+-   Field, A. (2017). *Discovering statistics using IBM SPSS statistics (5th edition).* Thousand Oaks, CA: SAGE Publications.
