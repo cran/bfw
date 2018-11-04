@@ -14,22 +14,26 @@
 #' @param run.robust logical, indicating whether or not robust analysis, Default: FALSE
 #' @param ... further arguments passed to or from other methods
 #' @seealso
-#'  \code{\link[stats]{complete.cases}},\code{\link[stats]{sd}},\code{\link[stats]{aggregate}},\code{\link[stats]{median}}
+#' \code{\link[stats]{complete.cases}},
+#' \code{\link[stats]{sd}},
+#' \code{\link[stats]{aggregate}},
+#' \code{\link[stats]{median}}
+#' \code{\link[utils]{head}}
 #' @rdname StatsMetric
 #' @export
 #' @importFrom stats complete.cases sd aggregate median
-StatsMetric <- function(y,
-                        y.names,
-                        x,
-                        x.names,
+StatsMetric <- function(y = NULL,
+                        y.names = NULL,
+                        x = NULL,
+                        x.names = NULL,
                         DF,
-                        params,
-                        job.group,
-                        initial.list,
+                        params = NULL,
+                        job.group = NULL,
+                        initial.list = list(),
                         model.name,
                         jags.model,
-                        custom.model,
-                        run.robust,
+                        custom.model = NULL,
+                        run.robust = FALSE,
                         ...
 ) {
   
@@ -132,7 +136,7 @@ StatsMetric <- function(y,
                    paste0("s",seq(n.x),collapse="") , 
                    paste(sprintf("x[i,%s]" , seq(n.x)),collapse=",") )
                    
-  sigma.prec <- paste(apply(tail(factors,1)[[1]], 1, function (x) {
+  sigma.prec <- paste(apply(utils::tail(factors,1)[[1]], 1, function (x) {
     
     get.letters <- letters[(10+length(x))+seq(length(x))]
     letters <- paste( get.letters , collapse=",")
@@ -202,7 +206,7 @@ StatsMetric <- function(y,
   }),collapse="\n\n")
   
   # Create means matrix
-  means <- paste(apply(tail(factors,1)[[1]], 1, function (x) {
+  means <- paste(apply(utils::tail(factors,1)[[1]], 1, function (x) {
     
     get.letters <- letters[(10+length(x))+seq(length(x))]
     

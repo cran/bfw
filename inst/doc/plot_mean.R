@@ -29,7 +29,9 @@ knitr::opts_chunk$set(
 #  #> sigma[1]: Before    1      1  1.000 49354  0.958  1.046 1000
 #  #> sigma[2]: During    1      1  1.000 50000  0.957  1.045 1000
 #  #> sigma[3]: After     1      1  0.997 50000  0.957  1.045 1000
-#  bfw::PlotData(mcmc, run.repeated = TRUE)
+#  Plot <- bfw::PlotMean(mcmc,
+#                        run.repeated = TRUE)
+#  ParsePlot(Plot)
 
 ## ----addnoise, eval = FALSE----------------------------------------------
 #  set.seed(101)
@@ -52,7 +54,9 @@ knitr::opts_chunk$set(
 #  #> sigma[1]: Before  1.120  1.119  1.116 50000  1.072  1.170 1000
 #  #> sigma[2]: During  1.116  1.116  1.112 50000  1.068  1.166 1000
 #  #> sigma[3]: After   1.101  1.100  1.097 49233  1.054  1.151 1000
-#  bfw::PlotData(noise.mcmc, run.repeated = TRUE)
+#  Plot <- bfw::PlotMean(noise.mcmc,
+#                        run.repeated = TRUE)
+#  ParsePlot(Plot)
 
 ## ----addgroup, eval = FALSE----------------------------------------------
 #  combined.data <- as.data.frame(rbind(cbind(data,"Y"), cbind(noise,"X") ), stringsAsFactors=FALSE)
@@ -90,6 +94,11 @@ knitr::opts_chunk$set(
 #  #> sigma[7]: After                  1.105 50000  1.072  1.140 2000
 #  #> sigma[8]: After vs. Groups @ X   1.098 50000  1.054  1.150 1000
 #  #> sigma[9]: After vs. Groups @ Y   1.000 50000  0.957  1.045 1000
+#  
 #  # Let's also add some colors!
-#  bfw::PlotData(combined.data, run.split = TRUE, run.repeated = TRUE ,  monochrome = FALSE)
+#  Plot <- bfw::PlotMean(combined.data,
+#                        run.split = TRUE,
+#                        run.repeated = TRUE,
+#                        monochrome = FALSE)
+#  ParsePlot(Plot)
 

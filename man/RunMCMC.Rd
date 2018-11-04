@@ -4,14 +4,17 @@
 \alias{RunMCMC}
 \title{Run MCMC}
 \usage{
-RunMCMC(jags.model, params, name.list, data.list, initial.list,
-  run.contrasts, use.contrast, contrasts, run.ppp, n.data, credible.region,
-  save.data = FALSE, ROPE, merge.MCMC, run.diag, sep,
-  monochrome = TRUE, plot.colors = c("#495054", "#e3e8ea"),
-  graphic.type = "png", plot.size = "15,10", scaling = 100,
-  plot.aspect = NULL, vector.graphic = TRUE, point.size = 15,
-  font.type = "serif", one.file = TRUE, ppi = 300, units = "in",
-  layout = "pw", layout.inverse = FALSE, ...)
+RunMCMC(jags.model, params = NULL, name.list, data.list,
+  initial.list = list(), run.contrasts = FALSE,
+  use.contrast = "between", contrasts = NULL, run.ppp = FALSE,
+  k.ppp = 10, n.data, credible.region = 0.95, save.data = FALSE,
+  ROPE = NULL, merge.MCMC = FALSE, run.diag = FALSE,
+  param.diag = NULL, sep = ",", monochrome = TRUE,
+  plot.colors = c("#495054", "#e3e8ea"), graphic.type = "pdf",
+  plot.size = "15,10", scaling = 100, plot.aspect = NULL,
+  vector.graphic = FALSE, point.size = 12, font.type = "serif",
+  one.file = TRUE, ppi = 300, units = "in", layout = "a4",
+  layout.inverse = FALSE, ...)
 }
 \arguments{
 \item{jags.model}{specify which module to use}
@@ -26,11 +29,13 @@ RunMCMC(jags.model, params, name.list, data.list, initial.list,
 
 \item{run.contrasts}{logical, indicating whether or not to run contrasts, Default: FALSE}
 
-\item{use.contrast}{choose from "between", "within" and "mixed". Between compare groups at different conditions. Within compare a group at different conditions. Mixed compute all comparisons.}
+\item{use.contrast}{choose from "between", "within" and "mixed". Between compare groups at different conditions. Within compare a group at different conditions. Mixed compute all comparisons, Default: "between",}
 
 \item{contrasts}{define contrasts to use for analysis (defaults to all) , Default: NULL}
 
 \item{run.ppp}{logical, indicating whether or not to conduct ppp analysis, Default: FALSE}
+
+\item{k.ppp}{run ppp for every kth length of MCMC chains, Default: 10}
 
 \item{n.data}{sample size for each parameter}
 
@@ -44,13 +49,15 @@ RunMCMC(jags.model, params, name.list, data.list, initial.list,
 
 \item{run.diag}{logical, indicating whether or not to run diagnostics, Default: FALSE}
 
+\item{param.diag}{define parameters to use for diagnostics, default equals all parameters, Default: NULL}
+
 \item{sep}{symbol to separate data (e.g., comma-delimited), Default: ','}
 
 \item{monochrome}{logical, indicating whether or not to use monochrome colors, else use \link[bfw]{DistinctColors}, Default: TRUE}
 
 \item{plot.colors}{range of color to use, Default: c("#495054", "#e3e8ea")}
 
-\item{graphic.type}{type of graphics to use (e.g., pdf, png, ps), Default: 'pptx'}
+\item{graphic.type}{type of graphics to use (e.g., pdf, png, ps), Default: 'pdf'}
 
 \item{plot.size}{size of plot, Default: '15,10'}
 
@@ -58,9 +65,9 @@ RunMCMC(jags.model, params, name.list, data.list, initial.list,
 
 \item{plot.aspect}{aspect of plot, Default: NULL}
 
-\item{vector.graphic}{logical, indicating whether or not visualizations should be vector or raster graphics, Default: TRUE}
+\item{vector.graphic}{logical, indicating whether or not visualizations should be vector or raster graphics, Default: FALSE}
 
-\item{point.size}{point size used for visualizations, Default: 15}
+\item{point.size}{point size used for visualizations, Default: 12}
 
 \item{font.type}{font type used for visualizations, Default: 'serif'}
 
@@ -70,7 +77,7 @@ RunMCMC(jags.model, params, name.list, data.list, initial.list,
 
 \item{units}{define unit of length used for visualizations, Default: 'in'}
 
-\item{layout}{define a layout size for visualizations, Default: 'pw'}
+\item{layout}{define a layout size for visualizations, Default: 'a4'}
 
 \item{layout.inverse}{logical, indicating whether or not to inverse layout (e.g., landscape) , Default: FALSE}
 

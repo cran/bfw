@@ -4,8 +4,9 @@
 \alias{StatsMetric}
 \title{Predict Metric}
 \usage{
-StatsMetric(y, y.names, x, x.names, DF, params, job.group, initial.list,
-  model.name, jags.model, custom.model, run.robust, ...)
+StatsMetric(y = NULL, y.names = NULL, x = NULL, x.names = NULL, DF,
+  params = NULL, job.group = NULL, initial.list = list(), model.name,
+  jags.model, custom.model = NULL, run.robust = FALSE, ...)
 }
 \arguments{
 \item{y}{criterion variable(s), Default: NULL}
@@ -38,5 +39,9 @@ StatsMetric(y, y.names, x, x.names, DF, params, job.group, initial.list,
 Bayesian alternative to ANOVA
 }
 \seealso{
-\code{\link[stats]{complete.cases}},\code{\link[stats]{sd}},\code{\link[stats]{aggregate}},\code{\link[stats]{median}}
+\code{\link[stats]{complete.cases}},
+\code{\link[stats]{sd}},
+\code{\link[stats]{aggregate}},
+\code{\link[stats]{median}}
+\code{\link[utils]{head}}
 }
