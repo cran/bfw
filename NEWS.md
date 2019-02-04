@@ -1,3 +1,30 @@
+# bfw 0.4.0
+
+#### Critical 
+
+* Fixed an sorting error in `contrasts` function
+
+#### Minor
+
+* Added the ability to use custom save names
+* Removed the appended "Plot" in save names for `ParsePlot` function
+
+# bfw 0.3.0.9002
+
+#### Minor
+
+* Fixed factor-to-numeric-bug `metric` function
+
+# bfw 0.3.0.9001
+
+### Feature
+
+* Added `InverseHDI` function to compute inverse cumulative density function of the distribution
+
+#### Minor
+
+* Added option to add results to `ETA` function
+
 # bfw 0.3.0
 
 ### Feature
@@ -36,7 +63,7 @@
 * Added `MultiGrep`  function to use multiple patterns to select an element from a vector
 * Fixed bug in `kappa` function
 * Fixed bug in `covariate` function
-* Fixed inlinde comment bug in `TidyCode` function
+* Fixed inline comment bug in `TidyCode` function
 * Added option to define which parameters to use for diagnostics
 * Removed (some of the...) unnecessary arguments in `bfw` function
 * Added a `apa` PowerPoint template
