@@ -21,7 +21,8 @@ knitr::opts_chunk$set(
 
 Enjoy this brief demonstration of the predict metric module
 
-First, we steal Field's (2017) dancing cat example (please see [Cats.R](extdata/Data/Cats.R))
+First, we steal Field's (2017) dancing cat example (please see
+[Cats.R](https://github.com/oeysan/bfw/blob/master/inst/extdata/data/Cats.R))
 
 ```{r describe}
 # Define data

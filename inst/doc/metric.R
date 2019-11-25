@@ -1,10 +1,10 @@
-## ----setup, include = FALSE----------------------------------------------
+## ----setup, include = FALSE---------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 
-## ----describe------------------------------------------------------------
+## ----describe-----------------------------------------------------------------
 # Define data
 data <- bfw::Cats
 # Aggregate data
@@ -20,7 +20,7 @@ describe.data
 # Print data
 print(aggregate.data, digits = 3)
 
-## ----metric1, eval = FALSE-----------------------------------------------
+## ----metric1, eval = FALSE----------------------------------------------------
 #  # Use the three categorical variables and mixed contrast.
 #  mcmc <- bfw::bfw(project.data = data,
 #              y = "Ratings",
@@ -87,7 +87,7 @@ print(aggregate.data, digits = 3)
 #  # Effect size: Affection vs. No/Yes @ Good             -0.102 -0.402  0.200  551
 #  # Effect size: Food/Affection @ Yes @ Good              1.899  1.586  2.196  524
 
-## ----describe2-----------------------------------------------------------
+## ----describe2----------------------------------------------------------------
 # Let's print the aggregate table again.
 print(aggregate.data, digits = 3)
 

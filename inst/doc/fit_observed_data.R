@@ -1,10 +1,10 @@
-## ----setup, include = FALSE----------------------------------------------
+## ----setup, include = FALSE---------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 
-## ----simulatedata--------------------------------------------------------
+## ----simulatedata-------------------------------------------------------------
 # Number of observations
 n <- 1000
 # Coefficient for a path (x -> m)
@@ -28,7 +28,7 @@ data <- data.frame(y = y,
                    x = x,
                    m = m)
 
-## ----observed1-----------------------------------------------------------
+## ----observed1----------------------------------------------------------------
 set.seed(102)
 ## create 5 y variables, 5 x variables and 5 m variables with jittered data
 jitter.data <- lapply(1:5, function (i) {
@@ -42,7 +42,7 @@ jitter.data <- data.frame( sapply(jitter.data, "[" ,,1) , # First column (y)
 # Add column names
 colnames(jitter.data) <- c( paste0("y",1:5) , paste0("x",1:5) , paste0("m",1:5))
 
-## ----lavaan3-------------------------------------------------------------
+## ----lavaan3------------------------------------------------------------------
 model <- '
 y =~ y1+y2+y3+y4+y5
 x =~ x1+x2+x3+x4+x5
@@ -62,7 +62,7 @@ cd := c + (a*b)
 jitter.fit <- lavaan::sem(model, data = jitter.data)
 lavaan::summary(jitter.fit)
 
-## ----fitdata3, eval = FALSE----------------------------------------------
+## ----fitdata3, eval = FALSE---------------------------------------------------
 #  bayesian.jitter.fit <- bfw(project.data = jitter.data,
 #                             observed = "x1,x2,x3,x4,x5,
 #                             m1,m2,m3,m4,m5,
@@ -124,7 +124,7 @@ lavaan::summary(jitter.fit)
 #  #> Fit (Discrepancy)                     -38.274  9228 -71.546  -5.316 1000
 #  #> PPP                                     0.991    20   0.988   0.992 1000
 
-## ----observed2-----------------------------------------------------------
+## ----observed2----------------------------------------------------------------
 biased.sigma <-matrix(c(1,1,0,1,1,0,0,0,1),3,3)
 set.seed(101)
 noise <- MASS::mvrnorm(n=2, 
@@ -137,11 +137,11 @@ jitter.noise <- noise[,rep(1:3,each=5)]
 colnames(jitter.noise) <- c( paste0("y",1:5) , paste0("x",1:5) , paste0("m",1:5))
 biased.jitter.data <- rbind(jitter.data, jitter.noise)
 
-## ----lavaan4-------------------------------------------------------------
+## ----lavaan4------------------------------------------------------------------
 biased.jitter.fit <- lavaan::sem(model, data = biased.jitter.data)
 lavaan::summary(biased.jitter.fit)
 
-## ----fitdata4, eval = FALSE----------------------------------------------
+## ----fitdata4, eval = FALSE---------------------------------------------------
 #  bayesian.biased.jitter.fit <- bfw(project.data = biased.jitter.data,
 #                                    observed = "x1,x2,x3,x4,x5,
 #                                    m1,m2,m3,m4,m5,

@@ -68,8 +68,8 @@
 #'  \code{\link[utils]{head}}
 #'  \code{\link[png]{readPNG}}
 #'  \code{\link[graphics]{par}},\code{\link[graphics]{plot}},\code{\link[graphics]{rasterImage}}
-#'  \code{\link[officer]{read_pptx}},\code{\link[officer]{add_slide}},\code{\link[officer]{ph_with_img}}
-#'  \code{\link[rvg]{ph_with_vg}}
+#'  \code{\link[officer]{read_pptx}},\code{\link[officer]{add_slide}},\code{\link[officer]{ph_with}}
+#'  \code{\link[rvg]{dml}}
 #' @rdname ParsePlot
 #' @export 
 #' @importFrom grDevices dev.new png dev.off setEPS recordPlot
@@ -373,33 +373,34 @@ ParsePlot <- function (plot.data,
           lapply(create.document, function (j) {
             
             # Add new slide
-            document <- officer::add_slide(document, "Blank", "Office Theme")
+            document <- officer::add_slide(document, "Title and Content", "Office Theme" )
             
             # If Vector graphics use rvg
             if (vector.graphic) { 
              
               # Create slide
-              document <- rvg::ph_with_vg(document, 
-                                          print(plot.data[[j]]),
-                                          fonts = list(font.type),
-                                          type = NULL,
-                                          pointsize = point.size,
-                                          offx = (page.width - plot.width) / 2,
-                                          offy = (page.height - plot.height) / 2,
-                                          width = plot.width,
-                                          height = plot.height
+              document <- officer::ph_with(document, 
+                                       rvg::dml( code = print(plot.data[[j]]) ,
+                                                 fonts = list(font.type),
+                                                 pointsize = point.size ),
+                                       location = officer::ph_location(
+                                         left = (page.width - plot.width) / 2,
+                                         top = (page.height - plot.height) / 2,
+                                         width = plot.width,
+                                         height = plot.height )
                                           
               )
               # Else use png device
             } else {
               
               # Add image to slide
-              document <- officer::ph_with_img_at(x = document, 
-                                                  src = tmp.file[[j]],
-                                                  width = plot.width,
-                                                  height = plot.height,
-                                                  left = (page.width - plot.width) / 2,
-                                                  top = (page.height - plot.height) / 2 )
+              document <- officer::ph_with(x = document, 
+                                           officer::external_img(tmp.file[[j]] ),
+                                           location = officer::ph_location(
+                                             left = (page.width - plot.width) / 2,
+                                             top = (page.height - plot.height) / 2,
+                                             width = plot.width,
+                                             height = plot.height ) )
             }
             
             ETA(plot.start.time , j , n.plots)

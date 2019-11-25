@@ -1,10 +1,10 @@
-## ----setup, include = FALSE----------------------------------------------
+## ----setup, include = FALSE---------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 
-## ----simulatedata--------------------------------------------------------
+## ----simulatedata-------------------------------------------------------------
 # Number of observations
 n <- 1000
 # Coefficient for a path (x -> m)
@@ -28,7 +28,7 @@ data <- data.frame(y = y,
                    x = x,
                    m = m)
 
-## ----lavaan1-------------------------------------------------------------
+## ----lavaan1------------------------------------------------------------------
 model <- "
 # direct effect
 y ~ c*x
@@ -43,7 +43,7 @@ cd := c + (a*b)"
 fit <- lavaan::sem(model, data = data)
 lavaan::summary(fit)
 
-## ----fitdata1, eval = FALSE----------------------------------------------
+## ----fitdata1, eval = FALSE---------------------------------------------------
 #  bayesian.fit <- bfw::bfw(project.data = data,
 #                      latent = "x,m,y",
 #                      saved.steps = 50000,
@@ -61,7 +61,7 @@ lavaan::summary(fit)
 #  #> indirect[1]: AB                      0.571 21431  0.531 0.611 1000
 #  #> total[1]: C                          0.591 49074  0.555 0.630 1000
 
-## ----noise---------------------------------------------------------------
+## ----noise--------------------------------------------------------------------
 biased.sigma <-matrix(c(1,1,0,1,1,0,0,0,1),3,3)
 set.seed(101)
 noise <- MASS::mvrnorm(n=2,
@@ -71,11 +71,11 @@ noise <- MASS::mvrnorm(n=2,
 colnames(noise) <- c("y","x","m")
 biased.data <- rbind(data,noise)
 
-## ----lavaan2-------------------------------------------------------------
+## ----lavaan2------------------------------------------------------------------
 biased.fit <- lavaan::sem(model, data = biased.data)
 lavaan::summary(biased.fit)
 
-## ----fitdata2, eval = FALSE----------------------------------------------
+## ----fitdata2, eval = FALSE---------------------------------------------------
 #  biased.bfit <- bfw::bfw(project.data = data,
 #                      latent = "x,m,y",
 #                      saved.steps = 50000,

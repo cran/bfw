@@ -1,10 +1,10 @@
-## ----setup, include = FALSE----------------------------------------------
+## ----setup, include = FALSE---------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 
-## ----simulatedata, eval = FALSE------------------------------------------
+## ----simulatedata, eval = FALSE-----------------------------------------------
 #  # Create normal distributed data with mean = 0 and standard deviation = 1
 #  Sigma <- matrix(0.25,3,3)
 #  diag(Sigma) <- 1
@@ -33,7 +33,7 @@ knitr::opts_chunk$set(
 #                        run.repeated = TRUE)
 #  ParsePlot(Plot)
 
-## ----addnoise, eval = FALSE----------------------------------------------
+## ----addnoise, eval = FALSE---------------------------------------------------
 #  set.seed(101)
 #  noise <- apply(data,2, function (x) x + rbinom(length(x),1,0.7))
 #  
@@ -58,7 +58,7 @@ knitr::opts_chunk$set(
 #                        run.repeated = TRUE)
 #  ParsePlot(Plot)
 
-## ----addgroup, eval = FALSE----------------------------------------------
+## ----addgroup, eval = FALSE---------------------------------------------------
 #  combined.data <- as.data.frame(rbind(cbind(data,"Y"), cbind(noise,"X") ), stringsAsFactors=FALSE)
 #  combined.data[,1:3] <- lapply(combined.data[,1:3] , as.numeric)
 #  combined.data[,4] <- as.factor(combined.data[,4])

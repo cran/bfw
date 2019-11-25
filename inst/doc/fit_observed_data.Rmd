@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 
 Enjoy this brief demonstration of the fit observed data module (i.e., a simple mediation model).
 
-Also, please see [Fit Latent Data](fit_latent_data.md).
+Also, please see [Fit Latent Data](https://github.com/oeysan/bfw/blob/master/inst/extdata/doc/fit_latent_data.md).
 
 ### First we simulate some data
 ```{r simulatedata}

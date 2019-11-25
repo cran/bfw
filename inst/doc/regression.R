@@ -1,10 +1,10 @@
-## ----setup, include = FALSE----------------------------------------------
+## ----setup, include = FALSE---------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 
-## ----simulatedata--------------------------------------------------------
+## ----simulatedata-------------------------------------------------------------
 # Create normal distributed data with mean = 0 and standard deviation = 1
 ## r = 0.5
 data <- MASS::mvrnorm(n=100,
@@ -14,14 +14,14 @@ data <- MASS::mvrnorm(n=100,
 # Add names
 colnames(data) <- c("x","y")
 
-## ----freq1---------------------------------------------------------------
+## ----freq1--------------------------------------------------------------------
 # Correlation
 stats::cor(data)[2]
 
 # Regression
 summary(stats::lm(y ~ x, data=data.frame(data)))
 
-## ----baeys1, eval = FALSE------------------------------------------------
+## ----baeys1, eval = FALSE-----------------------------------------------------
 #  mcmc <- bfw::bfw(project.data = data,
 #              y = "y",
 #              x = "x",
@@ -40,7 +40,7 @@ summary(stats::lm(y ~ x, data=data.frame(data)))
 #  #> zsigma[1]: Y vs. X    0.863 28840  0.760 1.005 100
 #  #> R^2 (block: 1)        0.246 51970  0.165 0.337 100
 
-## ----noise---------------------------------------------------------------
+## ----noise--------------------------------------------------------------------
 # Create noise with mean = 10 / -10 and sd = 1
 ## r = -1.0
 noise <- MASS::mvrnorm(n=2,
@@ -50,14 +50,14 @@ noise <- MASS::mvrnorm(n=2,
 # Combine data
 biased.data <- rbind(data,noise)
 
-## ----freq2---------------------------------------------------------------
+## ----freq2--------------------------------------------------------------------
 # Correlation
 stats::cor(biased.data)[2]
 
 # Regression
 summary(stats::lm(y ~ x, data=data.frame(biased.data)))
 
-## ----baeys2, eval = FALSE------------------------------------------------
+## ----baeys2, eval = FALSE-----------------------------------------------------
 #  mcmc.robust <- bfw::bfw(project.data = biased.data,
 #              y = "y",
 #              x = "x",

@@ -4,9 +4,14 @@
 \alias{PlotCirclize}
 \title{Circlize Plot}
 \usage{
-PlotCirclize(data, category.spacing = 1.2, category.inset = c(-0.4, 0),
-  monochrome = TRUE, plot.colors = c("#CCCCCC", "#DEDEDE"),
-  font.type = "serif")
+PlotCirclize(
+  data,
+  category.spacing = 1.2,
+  category.inset = c(-0.4, 0),
+  monochrome = TRUE,
+  plot.colors = c("#CCCCCC", "#DEDEDE"),
+  font.type = "serif"
+)
 }
 \arguments{
 \item{data}{data for circlize plot}
@@ -26,10 +31,10 @@ Create a circlize plot
 }
 \seealso{
 \code{\link[grDevices]{dev}},
- \code{\link[grDevices]{recordPlot}}
- \code{\link[graphics]{legend}}
- \code{\link[circlize]{circos.par}},
- \code{\link[circlize]{chordDiagram}},
- \code{\link[circlize]{circos.trackPlotRegion}},
- \code{\link[circlize]{circos.clear}}
+\code{\link[grDevices]{recordPlot}}
+\code{\link[graphics]{legend}}
+\code{\link[circlize]{circos.par}},
+\code{\link[circlize]{chordDiagram}},
+\code{\link[circlize]{circos.trackPlotRegion}},
+\code{\link[circlize]{circos.clear}}
 }
