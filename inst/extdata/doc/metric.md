@@ -50,7 +50,7 @@ First, we steal Field’s (2017) dancing cat example (please see
                 silent = TRUE)
 
     # ... and just show the most likely parameter estimate of effect sizes.
-    round(normal$summary.MCMC[grep("Effect size:",
+    round(mcmc$summary.MCMC[grep("Effect size:",
                              rownames(normal$summary.MCMC)), c(2,5:7)],3)   
     #                                                      Median  HDIlo  HDIhi    n
     # Effect size: Food/Affection                          -0.832 -0.992 -0.667 2000
